@@ -6,7 +6,13 @@ CFLAGS      ?= -W -Wall -Wextra -Werror -Wundef -Wshadow -pedantic \
                -Wdouble-promotion -fno-common -Wconversion \
                -march=rv32imc -mabi=ilp32 \
                -Os -ffunction-sections -fdata-sections \
-               -I. -I$(MDK)/$(ARCH) $(EXTRA_CFLAGS)
+               -I. -I$(MDK)/$(ARCH) \
+               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include
+               -I/root/.espressif/components/log/include
+               -I$(MDK)/components/crypto/crypto \
+               -I$(MDK)/components/firefly-display/include \
+               -I$(MDK)/components/firefly-scene/include \
+               $(EXTRA_CFLAGS)
 LINKFLAGS   ?= -T$(MDK)/$(ARCH)/link.ld -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
