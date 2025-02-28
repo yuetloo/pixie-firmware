@@ -10,6 +10,7 @@ CFLAGS      ?= -W -Wall -Wextra -Werror -Wundef -Wshadow -pedantic \
                -I/root/.espressif/components/esp_hw_support/include \
                -I/root/.espressif/components/esp_driver_gpio/include \
                -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include \
+               -I/root/.espressif/components/freertos/config/include/freertos \
                -I/root/.espressif/components/log/include \
                -I$(MDK)/components/crypto/crypto \
                -I$(MDK)/components/firefly-display/include \
