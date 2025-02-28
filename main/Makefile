@@ -1,14 +1,14 @@
 SOURCES = main.c \
-    keypad.c \
-    panel-attest.c \
-    panel-gifs.c \
-    panel-menu.c \
-    panel-space.c \
-    task-ble.c \
-    system/device-info.c \
-    system/pixels.c \
-    system/utils.c \
-    utils/cbor.c
+	keypad.c \
+	panel-attest.c \
+	panel-gifs.c \
+	panel-menu.c \
+	panel-space.c \
+	task-ble.c \
+	system/device-info.c \
+	system/pixels.c \
+	system/utils.c \
+	utils/cbor.c
 
 include ../$(ARCH)/build.mk
 
