@@ -7,11 +7,14 @@ CFLAGS      ?= -W -Wall -Wextra -Werror -Wundef -Wshadow -pedantic \
                -march=rv32imc -mabi=ilp32 \
                -Os -ffunction-sections -fdata-sections \
                -I. -I$(MDK)/$(ARCH) \
+               -I$(MDK) \
                -I/root/.espressif/components/esp_hw_support/include \
                -I/root/.espressif/components/esp_driver_gpio/include \
                -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include \
                -I/root/.espressif/components/freertos/config/include/freertos \
+               -I/root/.espressif/components/freertos/config/riscv/include \
                -I/root/.espressif/components/log/include \
+               -I/root/.espressif/components/esp_common/include \
                -I$(MDK)/components/crypto/crypto \
                -I$(MDK)/components/firefly-display/include \
                -I$(MDK)/components/firefly-scene/include \
