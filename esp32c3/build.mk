@@ -8,6 +8,7 @@ CFLAGS      ?= -W \
                -Os -ffunction-sections -fdata-sections \
                -I. -I$(MDK)/$(ARCH) \
                -I$(MDK) \
+               -I/root/.espressif/components/freertos/config/riscv/include \
                -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include \
                -I/root/.espressif/components/esp_driver_spi/include \
                -I/root/.espressif/components/newlib/platform_include \
