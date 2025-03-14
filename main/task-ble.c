@@ -69,7 +69,7 @@ static void print_addr(const char *prefix, const void *addr) {
 
 static void dumpBuffer(char *header, uint8_t *buffer, size_t length) {
     printf("%s (length=%d)", header, length);
-    for (int i = 0; i < length; i++) {
+    for (size_t i = 0; i < length; i++) {
         if ((i % 16) == 0) { printf("\n    "); }
         printf("%02x", buffer[i]);
         if ((i % 4) == 3) { printf("  "); }

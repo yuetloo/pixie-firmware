@@ -3,10 +3,14 @@
 
 #include "mdk.h"
 
-extern int main(void);
+extern int app_main(void);
 extern char _sbss, _ebss, _end, _eram;
 
 static char *s_heap_start, *s_heap_end, *s_brk;
+
+int main(void) {
+  app_main();
+}
 
 void *sbrk(int diff) {
   char *old = s_brk;
