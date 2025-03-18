@@ -115,7 +115,7 @@ static uint8_t* _getBytes(CborCursor *cursor, CborType *type,
 
     // Read the count bytes as the value
     uint64_t v = 0;
-    for (int i = 0; i < count; i++) {
+    for (uint32_t i = 0; i < count; i++) {
         v = (v << 8) | *data++;
     }
     *value = v;
@@ -170,7 +170,7 @@ CborStatus cbor_getData(CborCursor *cursor, uint8_t *output, size_t length) {
         value = length;
     }
 
-    for (int i = 0; i < value; i++) { output[i] = data[i]; }
+    for (uint64_t i = 0; i < value; i++) { output[i] = data[i]; }
 
     return status;
 }
@@ -331,7 +331,7 @@ bool _keyCompare(const char *key, CborCursor *cursor) {
     char cStr[cLen];
     cbor_getData(cursor, (uint8_t*)cStr, cLen);
 
-    for (int i = 0; i < sLen; i++) {
+    for (size_t i = 0; i < sLen; i++) {
         if (key[i] != cStr[i]) { return false; }
     }
 
@@ -381,7 +381,7 @@ CborStatus cbor_followIndex(CborCursor *cursor, size_t index) {
     status = cbor_firstValue(&follow, NULL);
     if (status) { return status; }
 
-    for (int i = 0; i < index; i++) {
+    for (size_t i = 0; i < index; i++) {
         status = cbor_nextValue(&follow, NULL);
         if (status) { return status; }
     }

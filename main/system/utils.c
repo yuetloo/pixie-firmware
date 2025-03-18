@@ -13,7 +13,7 @@ void delay(uint32_t duration) {
     vTaskDelay((duration + portTICK_PERIOD_MS - 1) / portTICK_PERIOD_MS);
 }
 
-char* taskName() {
+const char* taskName() {
     TaskStatus_t xTaskDetails;
     vTaskGetInfo(NULL, &xTaskDetails, pdFALSE, eInvalid);
     return xTaskDetails.pcTaskName;

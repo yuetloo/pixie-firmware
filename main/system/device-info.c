@@ -28,7 +28,7 @@ static uint8_t pubkeyN[384] = { 0 };
 esp_ds_data_t *cipherdata = NULL;
 
 static void reverseBytes(uint8_t *data, size_t length) {
-    for (int i = 0; i < length / 2; i++) {
+    for (size_t i = 0; i < length / 2; i++) {
         uint8_t tmp = data[i];
         data[i] = data[length - 1 - i];
         data[length - 1 - i] = tmp;
@@ -44,25 +44,25 @@ DeviceStatus device_getModelName(char *output, size_t length) {
     if (length == 0) { return DeviceStatusTruncated; }
 
     if (ready == DeviceStatusNotInitialized) {
-        int l = snprintf(output, length, "[uninitialized]");
+        size_t l = snprintf(output, length, "[uninitialized]");
         if (l >= length) { return DeviceStatusTruncated; }
         return ready;
     }
 
     if (ready != DeviceStatusOk) {
-        int l = snprintf(output, length, "[failed]");
+        size_t l = snprintf(output, length, "[failed]");
         if (l >= length) { return DeviceStatusTruncated; }
         return ready;
     }
 
     if ((modelNumber >> 8) == 1) {
-        int l = snprintf(output, length, "Firefly Pixie (DevKit rev.%ld)",
+        size_t l = snprintf(output, length, "Firefly Pixie (DevKit rev.%ld)",
           modelNumber & 0xff);
         if (l >= length) { return DeviceStatusTruncated; }
         return ready;
     }
 
-    int l = snprintf(output, length, "Unknown model: 0x%lx", modelNumber);
+    size_t l = snprintf(output, length, "Unknown model: 0x%lx", modelNumber);
     if (l >= length) { return DeviceStatusTruncated; }
     return ready;
 }

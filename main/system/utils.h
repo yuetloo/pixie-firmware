@@ -16,7 +16,7 @@ uint32_t ticks();
 // Delay %duration% ms
 void delay(uint32_t duration);
 
-char* taskName();
+const char* taskName();
 
 #ifdef __cplusplus
 }
