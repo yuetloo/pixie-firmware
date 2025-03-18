@@ -14,7 +14,7 @@
        
 /* List of deprecated options */
 /* Default entry point */
-ENTRY(call_start_cpu0);
+ENTRY(_reset);
 SECTIONS
 {
   /**
