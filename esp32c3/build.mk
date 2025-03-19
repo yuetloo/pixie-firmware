@@ -3,6 +3,7 @@ ARCH        ?= esp32c3
 MDK         ?= $(realpath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 ESPUTIL     ?= $(MDK)/esputil/esputil
 CFLAGS      ?= -W \
+               -Wno-sign-compare \
                -fno-common \
                -march=rv32imc -mabi=ilp32 \
                -Os -ffunction-sections -fdata-sections \
@@ -63,7 +64,25 @@ CFLAGS      ?= -W \
 LINKFLAGS   ?= -T$(MDK)/$(ARCH)/memory.ld -T$(MDK)/$(ARCH)/sections.ld  -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
-SRCS        ?= $(MDK)/$(ARCH)/boot.c $(SOURCES)
+FFY_SCENE   ?= $(MDK)/components/firefly-scene
+SCENE_SRCS  ?= $(FFY_SCENE)/src/color.c \
+               $(FFY_SCENE)/src/curves.c \
+               $(FFY_SCENE)/src/debug.c \
+               $(FFY_SCENE)/src/fixed.c \
+               $(FFY_SCENE)/src/node.c \
+               $(FFY_SCENE)/src/node-box.c \
+               $(FFY_SCENE)/src/node-fill.c \
+               $(FFY_SCENE)/src/node-group.c \
+               $(FFY_SCENE)/src/node-image.c \
+               $(FFY_SCENE)/src/node-text.c \
+               $(FFY_SCENE)/src/scene.c
+DISPLAY_SRCS ?= $(MDK)/components/firefly-display/src/display.c
+CRYPTO_SRCS  ?= $(MDK)/components/crypto/bip32.c \
+                $(MDK)/components/crypto/keccak256.c \
+                $(MDK)/components/crypto/ecc.c \
+                $(MDK)/components/crypto/sha2.c
+PIXIE_SRCS  ?= $(CRYPTO_SRCS) $(DISPLAY_SRCS) $(SCENE_SRCS)
+SRCS        ?= $(MDK)/$(ARCH)/boot.c $(PIXIE_SRCS) $(SOURCES)
 
 build: $(PROG).bin
 
