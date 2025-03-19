@@ -61,7 +61,7 @@ CFLAGS      ?= -W \
                -I$(MDK)/components/firefly-display/include \
                -I$(MDK)/components/firefly-scene/include \
                $(EXTRA_CFLAGS)
-LINKFLAGS   ?= -T$(MDK)/$(ARCH)/memory.ld -T$(MDK)/$(ARCH)/sections.ld  -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
+LINKFLAGS   ?= -T$(MDK)/$(ARCH)/memory.ld -T$(MDK)/$(ARCH)/sections.ld -T$(MDK)/$(ARCH)/link.ld -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
 FFY_SCENE   ?= $(MDK)/components/firefly-scene
