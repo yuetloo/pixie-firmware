@@ -139,4 +139,6 @@ PROVIDE(__divdi3 = 0x400007b4);
 PROVIDE(malloc = 0x40391d6e);
 PROVIDE(calloc = 0x40391dc0);
 PROVIDE(free = 0x40391d76);
-
+PROVIDE(snprintf = 0x42054e3e);
+PROVIDE(__assert_func = 0x40391c32);
+PROVIDE(puts = 0x42054c86);
