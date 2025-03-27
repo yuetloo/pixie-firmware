@@ -9,4 +9,4 @@ LIB_SRCS = $(IDF_LIB_PATH)/lldesc.c \
 EXTRA_FLAGS = $(IDF_LIB_PATH)/include \
            $(IDF_LIB_PATH)/$(ARCH)/include
 
-include ../$(ARCH)/build.mk
+include ../../../$(ARCH)/build.mk
