@@ -93,11 +93,11 @@ $(PROG).elf: $(SRCS)
 $(PROG).bin: $(PROG).elf $(ESPUTIL)
 	$(ESPUTIL) mkbin $(PROG).elf $@
 
-build-lib: $(MDK)/$(ARCH)/build/$(LIB).a
+build-lib: $(LIB).a
 
 $(LIB).a: $(LIB_SRCS)
 	gcc -W -march=rv32imc -mabi=ilp32 $(EXTRA_CFLAGS) $(LIB_SRCS) -o $@
-	ar rcs $(MDK)/$(ARCH)/build/$@ *.o
+	riscv32-esp-elf-ar rcs $@ *.o
 
 flash: $(PROG).bin $(ESPUTIL)
 	$(ESPUTIL) flash $(FLASH_ADDR) $(PROG).bin
