@@ -1,5 +1,5 @@
 IDF_PATH ?= /root/.espressif/components
-ESP_COMPONENTS = soc hal
+ESP_COMPONENTS = soc hal log
 
 all: build
 

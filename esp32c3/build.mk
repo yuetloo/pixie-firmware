@@ -3,7 +3,9 @@ ARCH        ?= esp32c3
 MDK         ?= $(realpath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 ESPUTIL     ?= $(MDK)/esputil/esputil
 LIB_CFLAGS  ?= -W \
-               -I$(MDK)
+               -I$(MDK) \
+               -I/root/.espressif/components/esp_common/include \
+               -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
 CFLAGS      ?= -W \
                -Wno-sign-compare \
                -fno-common \
