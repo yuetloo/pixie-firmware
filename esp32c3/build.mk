@@ -93,10 +93,10 @@ $(PROG).elf: $(SRCS)
 $(PROG).bin: $(PROG).elf $(ESPUTIL)
 	$(ESPUTIL) mkbin $(PROG).elf $@
 
-build-lib: $(LIB).a
+build-lib: $(LIB)
 
-$(LIB).a: $(LIB_SRCS)
-	gcc -W -march=rv32imc -mabi=ilp32 $(EXTRA_CFLAGS) $(LIB_SRCS) -o $@
+$(LIB): $(LIB_SRCS)
+	gcc -W -march=rv32imc -mabi=ilp32 $(EXTRA_CFLAGS) -c $(LIB_SRCS)
 	riscv32-esp-elf-ar rcs $@ *.o
 
 flash: $(PROG).bin $(ESPUTIL)
