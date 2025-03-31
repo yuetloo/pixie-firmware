@@ -2,6 +2,8 @@ PROG        ?= firmware
 ARCH        ?= esp32c3
 MDK         ?= $(realpath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 ESPUTIL     ?= $(MDK)/esputil/esputil
+LIB_CFLAGS  ?= -W \
+               -I$(MDK)
 CFLAGS      ?= -W \
                -Wno-sign-compare \
                -fno-common \
@@ -96,7 +98,7 @@ $(PROG).bin: $(PROG).elf $(ESPUTIL)
 build-lib: $(LIB)
 
 $(LIB): $(LIB_SRCS)
-	gcc -W -march=rv32imc -mabi=ilp32 $(EXTRA_CFLAGS) -c $(LIB_SRCS)
+	gcc -W -march=rv32imc -mabi=ilp32 $(LIB_CFLAGS) $(EXTRA_CFLAGS) -c $(LIB_SRCS)
 	riscv32-esp-elf-ar rcs $@ *.o
 
 flash: $(PROG).bin $(ESPUTIL)
