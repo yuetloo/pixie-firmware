@@ -7,4 +7,4 @@ build:
 	make -C main build ARCH=esp32c3
 
 build-lib:
-	@$(foreach item, $(ESP_COMPONENTS), make -C esp32c3/components/$(item) build-lib ARCH=esp32c3;)
+	@$(foreach item, $(ESP_COMPONENTS), make -C esp32c3/components/$(item) build-lib ARCH=esp32c3 IDF_PATH=$(IDF_PATH);)
