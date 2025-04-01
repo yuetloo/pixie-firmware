@@ -7,6 +7,8 @@ LIB_CFLAGS  ?= -W \
                -I/root/.espressif/components/esp_common/include \
                -I/root/.espressif/components/soc/$(ARCH)/include \
                -I/root/.espressif/components/soc/include \
+               -I/root/.espressif/components/log/include \
+               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include \
                -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
 CFLAGS      ?= -W \
                -Wno-sign-compare \
