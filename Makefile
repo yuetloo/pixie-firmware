@@ -1,6 +1,6 @@
 IDF_PATH ?= /root/.espressif/components
 ESP_COMPONENTS = soc hal log esp_common esp_hw_support riscv \
-		esp_rom
+		esp_rom newlib
 
 all: build
 

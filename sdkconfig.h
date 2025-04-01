@@ -3,6 +3,7 @@
  * Espressif IoT Development Framework (ESP-IDF) 5.2.4 Configuration Header
  */
 #pragma once
+#define CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM 1
 #define CONFIG_FREERTOS_NUMBER_OF_CORES 1
 #define CONFIG_SOC_ADC_SUPPORTED 1
 #define CONFIG_SOC_DEDICATED_GPIO_SUPPORTED 1
