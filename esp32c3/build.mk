@@ -6,6 +6,7 @@ LIB_CFLAGS  ?= -W \
                -I$(MDK) \
                -I/root/.espressif/components/esp_common/include \
                -I/root/.espressif/components/soc/$(ARCH)/include \
+               -I/root/.espressif/components/soc/include \
                -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
 CFLAGS      ?= -W \
                -Wno-sign-compare \
