@@ -8,7 +8,9 @@ LIB_SRCS = $(IDF_PATH)/$(LIBDIR)/cpu.c \
 EXTRA_CFLAGS= -I$(IDF_PATH)/$(LIBDIR)/include \
                 -I$(IDF_PATH)/$(LIBDIR)/include/soc \
                 -I$(IDF_PATH)/$(LIBDIR)/include/soc/${target} \
+                -I$(IDF_PATH)/$(LIBDIR)/include/esp_private \
                 -I$(IDF_PATH)/hal/esp32c3/include \
+                -I$(IDF_PATH)/riscv/include \
                 -I$(IDF_PATH)/dma/include \
                 -I$(IDF_PATH)/ldo/include
 
