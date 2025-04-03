@@ -6,10 +6,28 @@ LIB_CFLAGS  ?= -W \
                -I$(MDK) \
                -I/root/.espressif/components/esp_common/include \
                -I/root/.espressif/components/esp_rom/include \
+               -I/root/.espressif/components/esp_rom/include/$(ARCH) \
                -I/root/.espressif/components/soc/$(ARCH)/include \
                -I/root/.espressif/components/soc/include \
+               -I/root/.espressif/components/esp_coex/include \
                -I/root/.espressif/components/log/include \
+               -I/root/.espressif/components/newlib/platform_include \
+               -I/root/.espressif/components/heap/include \
+               -I/root/.espressif/components/hal/include \
+               -I/root/.espressif/components/hal/$(ARCH)/include \
+               -I/root/.espressif/components/hal/platform_port/include \
+               -I/root/.espressif/components/riscv/include \
+               -I/root/.espressif/components/spi_flash/include \
+               -I/root/.espressif/components/esp_hw_support/include \
+               -I/root/.espressif/components/esp_hw_support/port/$(ARCH)/include \
+               -I/root/.espressif/components/esp_hw_support/include/soc \
+               -I/root/.espressif/components/esp_hw_support/include/soc/$(ARCH) \
+               -I/root/.espressif/components/freertos/config/include \
                -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include \
+               -I/root/.espressif/components/freertos/config/include/freertos\
+               -I/root/.espressif/components/freertos/config/riscv/include \
+               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include/freertos \
+               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include \
                -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
 CFLAGS      ?= -W \
                -Wno-sign-compare \
