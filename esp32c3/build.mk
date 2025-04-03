@@ -5,6 +5,7 @@ ESPUTIL     ?= $(MDK)/esputil/esputil
 LIB_CFLAGS  ?= -W \
                -I$(MDK) \
                -I/root/.espressif/components/esp_common/include \
+               -I/root/.espressif/components/esp_rom/$(ARCH) \
                -I/root/.espressif/components/esp_rom/include \
                -I/root/.espressif/components/esp_rom/include/$(ARCH) \
                -I/root/.espressif/components/soc/$(ARCH)/include \
