@@ -15,7 +15,6 @@ LIB_SRCS = $(IDF_PATH)/$(LIBDIR)/crosscore_int.c \
            $(IDF_PATH)/$(LIBDIR)/xt_wdt.c
 
 EXTRA_CFLAGS= -I$(IDF_PATH)/$(LIBDIR)/include \
-              -I$(IDF_PATH)/$(LIBDIR)/include/esp_p
-rivate
+              -I$(IDF_PATH)/$(LIBDIR)/include/esp_private
 
 include ../../../$(ARCH)/build.mk
