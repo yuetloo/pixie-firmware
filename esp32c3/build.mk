@@ -90,9 +90,39 @@ CFLAGS      ?= -W \
                -I$(MDK)/components/firefly-display/include \
                -I$(MDK)/components/firefly-scene/include \
                $(EXTRA_CFLAGS)
-LINKFLAGS   ?= -T$(MDK)/$(ARCH)/components/esp_system/ld/memory.ld \
-               -T$(MDK)/$(ARCH)/components/esp_system/ld/sections.ld \
-               -T$(MDK)/$(ARCH)/link.ld -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
+LINKFLAGS += -march=rv32imc_zicsr_zifencei  -nostartfiles -march=rv32imc_zicsr_zifencei \
+-Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32C3=0 -Wl,--Map=/root/.espressif/components/bootloader/bootloader.map \
+-Wl,--no-warn-rwx-segments -fno-lto -Wl,--gc-sections -Wl,--warn-common -T esp32c3.rom.ld \
+-T esp32c3.rom.api.ld -T esp32c3.rom.libgcc.ld -T esp32c3.rom.newlib.ld \
+-T esp32c3.peripherals.ld -T bootloader.ld -T bootloader.rom.ld \
+-L/root/.espressif/components/esp_rom/esp32c3/ld  \
+-L/root/.espressif/components/soc/esp32c3/ld  \
+-L/root/.espressif/components/bootloader/subproject/main/ld/esp32c3  \
+$(MKD)/$(ARCH)/components/soc/libsoc.a \
+$(MDK)/$(ARCH)/components/soc/libsoc.a \
+$(MDK)/$(ARCH)/components/micro-ecc/libmicro-ecc.a \
+$(MDK)/$(ARCH)/components/hal/libhal.a \
+$(MDK)/$(ARCH)/components/spi_flash/libspi_flash.a \
+$(MDK)/$(ARCH)/components/esp_bootloader_format/libesp_bootloader_format.a \
+$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
+$(MDK)/$(ARCH)/components/efuse/libefuse.a \
+$(MDK)/$(ARCH)/components/esp_hw_support/libesp_hw_support.a \
+$(MDK)/$(ARCH)/components/esp_rom/libesp_rom.a \
+$(MDK)/$(ARCH)/components/esp-idf/main/libmain.a \
+$(MDK)/$(ARCH)/components/soc/libsoc.a \
+$(MDK)/$(ARCH)/components/spi_flash/libspi_flash.a \
+$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
+$(MDK)/$(ARCH)/components/esp_system/libesp_system.a \
+$(MDK)/$(ARCH)/components/esp_common/libesp_common.a \
+$(MDK)/$(ARCH)/components/log/liblog.a \
+$(MDK)/$(ARCH)/components/esp_bootloader_format/libesp_bootloader_format.a \
+$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
+$(MDK)/$(ARCH)/components/efuse/libefuse.a \
+$(MDK)/$(ARCH)/components/esp_hw_support/libesp_hw_support.a \
+$(MDK)/$(ARCH)/components/esp_rom/libesp_rom.a \
+$(MDK)/$(ARCH)/components/micro-ecc/libmicro-ecc.a \
+$(MDK)/$(ARCH)/components/esp_bootloader_format/libesp_bootloader_format.a \
+-u __assert_func -u esp_bootloader_desc -u abort -u __ubsan_include -u bootloader_hooks_include
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
 FFY_SCENE   ?= $(MDK)/components/firefly-scene
