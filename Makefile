@@ -11,6 +11,6 @@ build-lib:
 	@$(foreach item, $(ESP_COMPONENTS), make -C esp32c3/components/$(item) build-lib ARCH=esp32c3 LIBDIR=$(item) IDF_PATH=$(IDF_PATH);)
 
 clean:
-        make -C main clean ARCH=esp32c3
-        @$(foreach item, $(ESP_COMPONENTS), rm -f esp32c3/components/$(item)/*.o esp32c3/components/$(item)/*.
+	make -C main clean ARCH=esp32c3
+	@$(foreach item, $(ESP_COMPONENTS), rm -f esp32c3/components/$(item)/*.o esp32c3/components/$(item)/*.
 
