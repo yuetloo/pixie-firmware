@@ -108,7 +108,6 @@ $(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
 $(MDK)/$(ARCH)/components/efuse/libefuse.a \
 $(MDK)/$(ARCH)/components/esp_hw_support/libesp_hw_support.a \
 $(MDK)/$(ARCH)/components/esp_rom/libesp_rom.a \
-$(MDK)/$(ARCH)/components/esp-idf/main/libmain.a \
 $(MDK)/$(ARCH)/components/soc/libsoc.a \
 $(MDK)/$(ARCH)/components/spi_flash/libspi_flash.a \
 $(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
