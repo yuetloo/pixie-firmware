@@ -12,5 +12,6 @@ build-lib:
 
 clean:
 	make -C main clean ARCH=esp32c3
-	@$(foreach item, $(ESP_COMPONENTS), rm -f esp32c3/components/$(item)/*.o esp32c3/components/$(item)/*.
+	@$(foreach item, $(ESP_COMPONENTS), \
+	rm -f esp32c3/components/$(item)/*.o esp32c3/components/$(item)/*.a;)
 
