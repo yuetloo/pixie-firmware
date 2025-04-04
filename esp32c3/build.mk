@@ -98,29 +98,16 @@ LINKFLAGS += -march=rv32imc_zicsr_zifencei  -nostartfiles -march=rv32imc_zicsr_z
 -L/root/.espressif/components/esp_rom/esp32c3/ld  \
 -L/root/.espressif/components/soc/esp32c3/ld  \
 -L/root/.espressif/components/bootloader/subproject/main/ld/esp32c3  \
-$(MKD)/$(ARCH)/components/soc/libsoc.a \
+/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/lib/libc.a \
+$(MDK)/$(ARCH)/components/newlib/libnewlib.a \
 $(MDK)/$(ARCH)/components/soc/libsoc.a \
-$(MDK)/$(ARCH)/components/micro-ecc/libmicro-ecc.a \
 $(MDK)/$(ARCH)/components/hal/libhal.a \
-$(MDK)/$(ARCH)/components/spi_flash/libspi_flash.a \
-$(MDK)/$(ARCH)/components/esp_bootloader_format/libesp_bootloader_format.a \
-$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
-$(MDK)/$(ARCH)/components/efuse/libefuse.a \
-$(MDK)/$(ARCH)/components/esp_hw_support/libesp_hw_support.a \
 $(MDK)/$(ARCH)/components/esp_rom/libesp_rom.a \
 $(MDK)/$(ARCH)/components/soc/libsoc.a \
-$(MDK)/$(ARCH)/components/spi_flash/libspi_flash.a \
-$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
 $(MDK)/$(ARCH)/components/esp_system/libesp_system.a \
 $(MDK)/$(ARCH)/components/esp_common/libesp_common.a \
 $(MDK)/$(ARCH)/components/log/liblog.a \
-$(MDK)/$(ARCH)/components/esp_bootloader_format/libesp_bootloader_format.a \
-$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
-$(MDK)/$(ARCH)/components/efuse/libefuse.a \
-$(MDK)/$(ARCH)/components/esp_hw_support/libesp_hw_support.a \
 $(MDK)/$(ARCH)/components/esp_rom/libesp_rom.a \
-$(MDK)/$(ARCH)/components/micro-ecc/libmicro-ecc.a \
-$(MDK)/$(ARCH)/components/esp_bootloader_format/libesp_bootloader_format.a \
 -u __assert_func -u esp_bootloader_desc -u abort -u __ubsan_include -u bootloader_hooks_include
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
