@@ -5,6 +5,7 @@ ESPUTIL     ?= $(MDK)/esputil/esputil
 LIB_CFLAGS  ?= -W \
                -I$(MDK) \
                -I/root/.espressif/components/esp_common/include \
+               -I/root/.espressif/components/esp_system/include \
                -I/root/.espressif/components/esp_rom/$(ARCH) \
                -I/root/.espressif/components/esp_rom/include \
                -I/root/.espressif/components/esp_rom/include/$(ARCH) \
@@ -89,7 +90,9 @@ CFLAGS      ?= -W \
                -I$(MDK)/components/firefly-display/include \
                -I$(MDK)/components/firefly-scene/include \
                $(EXTRA_CFLAGS)
-LINKFLAGS   ?= -T$(MDK)/$(ARCH)/memory.ld -T$(MDK)/$(ARCH)/sections.ld -T$(MDK)/$(ARCH)/link.ld -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
+LINKFLAGS   ?= -T$(MDK)/$(ARCH)/components/esp_system/ld/memory.ld \
+               -T$(MDK)/$(ARCH)/components/esp_system/ld/sections.ld \
+               -T$(MDK)/$(ARCH)/link.ld -nostdlib -nostartfiles -Wl,--gc-sections $(EXTRA_LINKFLAGS)
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
 FFY_SCENE   ?= $(MDK)/components/firefly-scene
@@ -112,7 +115,7 @@ CRYPTO_SRCS  ?= $(MDK)/components/crypto/bip32.c \
 PIXIE_SRCS  ?= $(CRYPTO_SRCS) $(DISPLAY_SRCS) $(SCENE_SRCS)
 SRCS        ?= $(MDK)/$(ARCH)/boot.c $(PIXIE_SRCS) $(SOURCES)
 
-build: $(PROG).bin
+build: $(PROG).elf
 
 $(PROG).elf: $(SRCS)
 	gcc  $(CFLAGS) $(SRCS) $(LINKFLAGS) -o $@
