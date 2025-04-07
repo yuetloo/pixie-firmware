@@ -84,6 +84,9 @@ CFLAGS      ?= -W \
                -I/root/.espressif/components/riscv/include \
                -I/root/.espressif/components/soc/esp32c3/include \
                -I/root/.espressif/components/soc/include \
+               -I/root/.espressif/components/bootloader_support/include \
+               -I/root/.espressif/components/bootloader/subproject/main \
+               -I/root/.espressif/components/bootloader_support/private_include \
                -I/root/.espressif/riscv32-esp-elf/lib/gcc/riscv32-esp-elf/13.2.0/include \
                -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include \
                -I$(MDK)/components/crypto \
@@ -91,7 +94,7 @@ CFLAGS      ?= -W \
                -I$(MDK)/components/firefly-scene/include \
                $(EXTRA_CFLAGS)
 LINKFLAGS += -march=rv32imc_zicsr_zifencei  -nostartfiles -march=rv32imc_zicsr_zifencei \
--Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32C3=0 -Wl,--Map=/root/.espressif/components/bootloader/bootloader.map \
+-Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32C3=0 -Wl,--Map=$(MDK)/pixie.map \
 -Wl,--no-warn-rwx-segments -Wl,--gc-sections -Wl,--warn-common -T esp32c3.rom.ld \
 -T esp32c3.rom.api.ld -T esp32c3.rom.libgcc.ld -T esp32c3.rom.newlib.ld \
 -T esp32c3.peripherals.ld -T bootloader.ld -T bootloader.rom.ld \
@@ -129,7 +132,7 @@ CRYPTO_SRCS  ?= $(MDK)/components/crypto/bip32.c \
                 $(MDK)/components/crypto/ecc.c \
                 $(MDK)/components/crypto/sha2.c
 PIXIE_SRCS  ?= $(CRYPTO_SRCS) $(DISPLAY_SRCS) $(SCENE_SRCS)
-SRCS        ?= $(MDK)/$(ARCH)/boot.c $(PIXIE_SRCS) $(SOURCES)
+SRCS        ?= /root/.espressif/components/bootloader/subproject/main/bootloader_start.c $(PIXIE_SRCS) $(SOURCES)
 
 build: $(PROG).elf
 
