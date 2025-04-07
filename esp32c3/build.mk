@@ -92,7 +92,7 @@ CFLAGS      ?= -W \
                $(EXTRA_CFLAGS)
 LINKFLAGS += -march=rv32imc_zicsr_zifencei  -nostartfiles -march=rv32imc_zicsr_zifencei \
 -Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32C3=0 -Wl,--Map=/root/.espressif/components/bootloader/bootloader.map \
--Wl,--no-warn-rwx-segments -fno-lto -Wl,--gc-sections -Wl,--warn-common -T esp32c3.rom.ld \
+-Wl,--no-warn-rwx-segments -Wl,--gc-sections -Wl,--warn-common -T esp32c3.rom.ld \
 -T esp32c3.rom.api.ld -T esp32c3.rom.libgcc.ld -T esp32c3.rom.newlib.ld \
 -T esp32c3.peripherals.ld -T bootloader.ld -T bootloader.rom.ld \
 -L/root/.espressif/components/esp_rom/esp32c3/ld  \
