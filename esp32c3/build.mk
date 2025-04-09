@@ -3,37 +3,11 @@ ARCH        ?= esp32c3
 MDK         ?= $(realpath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 ESPUTIL     ?= $(MDK)/esputil/esputil
 include $(MDK)/$(ARCH)/esp.mk
-INCLUDES    = $(ESP_INCLUDES)
-LIB_CFLAGS  ?= -W -Wno-sign-compare -Wno-old-style-declaration \
-               -I$(MDK) \
-               -I/root/.espressif/components/esp_bootloader_format/include \
-               -I/root/.espressif/components/esp_common/include \
-               -I/root/.espressif/components/esp_system/include \
-               -I/root/.espressif/components/esp_rom/$(ARCH) \
-               -I/root/.espressif/components/esp_rom/include \
-               -I/root/.espressif/components/esp_rom/include/$(ARCH) \
-               -I/root/.espressif/components/soc/$(ARCH)/include \
-               -I/root/.espressif/components/soc/include \
-               -I/root/.espressif/components/esp_coex/include \
-               -I/root/.espressif/components/log/include \
-               -I/root/.espressif/components/newlib/platform_include \
-               -I/root/.espressif/components/heap/include \
-               -I/root/.espressif/components/hal/include \
-               -I/root/.espressif/components/hal/$(ARCH)/include \
-               -I/root/.espressif/components/hal/platform_port/include \
-               -I/root/.espressif/components/riscv/include \
-               -I/root/.espressif/components/spi_flash/include \
-               -I/root/.espressif/components/esp_hw_support/include \
-               -I/root/.espressif/components/esp_hw_support/port/$(ARCH)/include \
-               -I/root/.espressif/components/esp_hw_support/include/soc \
-               -I/root/.espressif/components/esp_hw_support/include/soc/$(ARCH) \
-               -I/root/.espressif/components/freertos/config/include \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include \
-               -I/root/.espressif/components/freertos/config/include/freertos\
-               -I/root/.espressif/components/freertos/config/riscv/include \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include/freertos \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include \
-               -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
+FFY_INCLUDES = -I$(MDK)/components/crypto \
+               -I$(MDK)/components/firefly-display/src \
+               -I$(MDK)/components/firefly-display/include \
+               -I$(MDK)/components/firefly-scene/include  \
+               -I$(MDK)/components/firefly-scene
 CFLAGS      ?= -W -Wno-sign-compare -fno-common \
                -march=rv32imczicsr -mabi=ilp32 -Os \
                -ffunction-sections -fdata-sections \
@@ -83,7 +57,7 @@ SRCS        ?= /root/.espressif/components/bootloader/subproject/main/bootloader
 build: $(PROG).elf
 
 $(PROG).elf: $(SRCS)
-	gcc  $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDES) $(SRCS) $(LINKFLAGS) -o $@
+	gcc  $(CFLAGS) $(EXTRA_CFLAGS) $(ESP_INCLUDES) $(FFY_INCLUDES) $(SRCS) $(LINKFLAGS) -o $@
 #	$(TOOLCHAIN)-size $@
 
 $(PROG).bin: $(PROG).elf $(ESPUTIL)
@@ -92,7 +66,7 @@ $(PROG).bin: $(PROG).elf $(ESPUTIL)
 build-lib: $(LIB)
 
 $(LIB): $(LIB_SRCS)
-	gcc -Wno-old-style-declaration $(CFLAGS) $(INCLUDES) $(EXTRA_CFLAGS) -c $(LIB_SRCS)
+	gcc -Wno-old-style-declaration $(CFLAGS) $(ESP_INCLUDES) $(EXTRA_CFLAGS) -c $(LIB_SRCS)
 	riscv32-esp-elf-ar rcs $@ *.o
 
 flash: $(PROG).bin $(ESPUTIL)
