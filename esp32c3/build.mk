@@ -2,9 +2,8 @@ PROG        ?= firmware
 ARCH        ?= esp32c3
 MDK         ?= $(realpath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 ESPUTIL     ?= $(MDK)/esputil/esputil
-ESPRESIF_PATH ?= /root/.espressif/
-INCLUDE_DIRS := $(shell find $(ESPRESIF_PATH) -type f -name '*.h' -exec dirname {} \; | sort -u)
-INCLUDES    := $(patsubst %,-I%,$(INCLUDE_DIRS))
+include $(MDK)/$(ARCH)/esp.mk
+INCLUDES    = $(ESP_INCLUDES)
 LIB_CFLAGS  ?= -W -Wno-sign-compare -Wno-old-style-declaration \
                -I$(MDK) \
                -I/root/.espressif/components/esp_bootloader_format/include \
