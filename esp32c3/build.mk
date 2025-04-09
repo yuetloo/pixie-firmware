@@ -2,8 +2,12 @@ PROG        ?= firmware
 ARCH        ?= esp32c3
 MDK         ?= $(realpath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 ESPUTIL     ?= $(MDK)/esputil/esputil
-LIB_CFLAGS  ?= -W \
+ESPRESIF_PATH ?= /root/.espressif/
+INCLUDE_DIRS := $(shell find $(ESPRESIF_PATH) -type f -name '*.h' -exec dirname {} \; | sort -u)
+INCLUDES    := $(patsubst %,-I%,$(INCLUDE_DIRS))
+LIB_CFLAGS  ?= -W -Wno-sign-compare -Wno-old-style-declaration \
                -I$(MDK) \
+               -I/root/.espressif/components/esp_bootloader_format/include \
                -I/root/.espressif/components/esp_common/include \
                -I/root/.espressif/components/esp_system/include \
                -I/root/.espressif/components/esp_rom/$(ARCH) \
@@ -31,69 +35,11 @@ LIB_CFLAGS  ?= -W \
                -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include/freertos \
                -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include \
                -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
-CFLAGS      ?= -W \
-               -Wno-sign-compare \
-               -fno-common \
-               -march=rv32imc -mabi=ilp32 \
-               -Os -ffunction-sections -fdata-sections \
-               -I. -I$(MDK)/$(ARCH) \
-               -I$(MDK) \
-               -I/root/.espressif/components/bt/common/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/nimble/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/nimble/host/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/nimble/host/services/gap/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/nimble/host/services/gatt/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/nimble/host/util/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/nimble/transport/include \
-               -I/root/.espressif/components/bt/host/nimble/nimble/porting/nimble/include \
-               -I/root/.espressif/components/bt/host/nimble/port/include \
-               -I/root/.espressif/components/bt/porting/npl/freertos/include \
-               -I/root/.espressif/components/efuse/esp32c3/include \
-               -I/root/.espressif/components/efuse/include \
-               -I/root/.espressif/components/esp_common/include \
-               -I/root/.espressif/components/esp_driver_gpio/include \
-               -I/root/.espressif/components/esp_driver_rmt/include \
-               -I/root/.espressif/components/esp_driver_spi/include \
-               -I/root/.espressif/components/esp_hw_support/include \
-               -I/root/.espressif/components/esp_hw_support/include/soc/esp32c3 \
-               -I/root/.espressif/components/esp_hw_support/port/esp32c3/include \
-               -I/root/.espressif/components/esp_hw_support/port/include \
-               -I/root/.espressif/components/esp_partition/include \
-               -I/root/.espressif/components/esp_rom/esp32c3 \
-               -I/root/.espressif/components/esp_rom/include \
-               -I/root/.espressif/components/esp_system/include \
-               -I/root/.espressif/components/esp_system/port/include \
-               -I/root/.espressif/components/esp_system/port/include/riscv \
-               -I/root/.espressif/components/esp_timer/include \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/portable/riscv/include/freertos \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include/freertos \
-               -I/root/.espressif/components/freertos/FreeRTOS-Kernel/include \
-               -I/root/.espressif/components/freertos/config/include \
-               -I/root/.espressif/components/freertos/config/include/freertos \
-               -I/root/.espressif/components/freertos/config/riscv/include \
-               -I/root/.espressif/components/freertos/esp_additions/include \
-               -I/root/.espressif/components/freertos/esp_additions \
-               -I/root/.espressif/components/hal/esp32c3/include \
-               -I/root/.espressif/components/hal/include \
-               -I/root/.espressif/components/hal/platform_port/include \
-               -I/root/.espressif/components/heap/include \
-               -I/root/.espressif/components/log/include \
-               -I/root/.espressif/components/newlib/platform_include \
-               -I/root/.espressif/components/nvs_flash/include \
-               -I/root/.espressif/components/riscv/include \
-               -I/root/.espressif/components/soc/esp32c3/include \
-               -I/root/.espressif/components/soc/include \
-               -I/root/.espressif/components/bootloader_support/include \
-               -I/root/.espressif/components/bootloader/subproject/main \
-               -I/root/.espressif/components/bootloader_support/private_include \
-               -I/root/.espressif/riscv32-esp-elf/lib/gcc/riscv32-esp-elf/13.2.0/include \
-               -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include \
-               -I$(MDK)/components/crypto \
-               -I$(MDK)/components/firefly-display/include \
-               -I$(MDK)/components/firefly-scene/include \
-               $(EXTRA_CFLAGS)
-LINKFLAGS += -march=rv32imc_zicsr_zifencei  -nostartfiles -march=rv32imc_zicsr_zifencei \
+CFLAGS      ?= -W -Wno-sign-compare -fno-common \
+               -march=rv32imczicsr -mabi=ilp32 -Os \
+               -ffunction-sections -fdata-sections \
+               -I. -I$(MDK)/$(ARCH) -I$(MDK) 
+LINKFLAGS += -nostartfiles \
 -Wl,--cref -Wl,--defsym=IDF_TARGET_ESP32C3=0 -Wl,--Map=$(MDK)/pixie.map \
 -Wl,--no-warn-rwx-segments -Wl,--gc-sections -Wl,--warn-common -T esp32c3.rom.ld \
 -T esp32c3.rom.api.ld -T esp32c3.rom.libgcc.ld -T esp32c3.rom.newlib.ld \
@@ -111,6 +57,7 @@ $(MDK)/$(ARCH)/components/esp_system/libesp_system.a \
 $(MDK)/$(ARCH)/components/esp_common/libesp_common.a \
 $(MDK)/$(ARCH)/components/log/liblog.a \
 $(MDK)/$(ARCH)/components/esp_rom/libesp_rom.a \
+$(MDK)/$(ARCH)/components/bootloader_support/libbootloader_support.a \
 -u __assert_func -u esp_bootloader_desc -u abort -u __ubsan_include -u bootloader_hooks_include
 CWD         ?= $(realpath $(CURDIR))
 FLASH_ADDR  ?= 0  # 2nd stage bootloader flash offset
@@ -137,7 +84,7 @@ SRCS        ?= /root/.espressif/components/bootloader/subproject/main/bootloader
 build: $(PROG).elf
 
 $(PROG).elf: $(SRCS)
-	gcc  $(CFLAGS) $(SRCS) $(LINKFLAGS) -o $@
+	gcc  $(CFLAGS) $(EXTRA_CFLAGS) $(INCLUDES) $(SRCS) $(LINKFLAGS) -o $@
 #	$(TOOLCHAIN)-size $@
 
 $(PROG).bin: $(PROG).elf $(ESPUTIL)
@@ -146,7 +93,7 @@ $(PROG).bin: $(PROG).elf $(ESPUTIL)
 build-lib: $(LIB)
 
 $(LIB): $(LIB_SRCS)
-	gcc -W -march=rv32imc -mabi=ilp32 $(LIB_CFLAGS) $(EXTRA_CFLAGS) -c $(LIB_SRCS)
+	gcc -Wno-old-style-declaration $(CFLAGS) $(INCLUDES) $(EXTRA_CFLAGS) -c $(LIB_SRCS)
 	riscv32-esp-elf-ar rcs $@ *.o
 
 flash: $(PROG).bin $(ESPUTIL)

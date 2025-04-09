@@ -3,6 +3,7 @@ LIBDIR = bootloader_support
 LIB_SRCS = $(IDF_PATH)/$(LIBDIR)/src/bootloader_common.c \
            $(IDF_PATH)/$(LIBDIR)/src/bootloader_common_loader.c \
            $(IDF_PATH)/$(LIBDIR)/src/bootloader_clock_init.c \
+           $(IDF_PATH)/$(LIBDIR)/src/bootloader_init.c \
            $(IDF_PATH)/$(LIBDIR)/src/bootloader_mem.c \
            $(IDF_PATH)/$(LIBDIR)/src/bootloader_random.c \
            $(IDF_PATH)/$(LIBDIR)/src/bootloader_efuse.c \
