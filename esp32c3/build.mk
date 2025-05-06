@@ -9,6 +9,7 @@ FFY_INCLUDES = -I$(MDK)/components/crypto \
                -I$(MDK)/components/firefly-scene/include  \
                -I$(MDK)/components/firefly-scene
 CFLAGS      ?= -W -Wno-sign-compare -fno-common \
+               -D_GNU_SOURCE \
                -march=rv32imczicsr -mabi=ilp32 -Os \
                -ffunction-sections -fdata-sections \
                -I. -I$(MDK)/$(ARCH) -I$(MDK) 
