@@ -8,7 +8,6 @@ LIB_SRCS = $(IDF_PATH)/$(LIBDIR)/abort.c \
            $(IDF_PATH)/$(LIBDIR)/random.c \
            $(IDF_PATH)/$(LIBDIR)/getentropy.c \
            $(IDF_PATH)/$(LIBDIR)/newlib_init.c \
-           $(IDF_PATH)/$(LIBDIR)/syscalls.c \
            $(IDF_PATH)/$(LIBDIR)/termios.c \
            $(IDF_PATH)/$(LIBDIR)/stdatomic.c \
            $(IDF_PATH)/$(LIBDIR)/time.c \
