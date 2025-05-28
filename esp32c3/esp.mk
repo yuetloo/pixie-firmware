@@ -58,4 +58,8 @@ ESP_INCLUDES ?= -I/root/.espressif/components/bt/common/include \
                -I/root/.espressif/components/spi_flash/include \
                -I/root/.espressif/components/esp_bootloader_format/include \
                -I/root/.espressif/components/esp_coex/include \
-               -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include
+               -I/root/.espressif/riscv32-esp-elf/riscv32-esp-elf/include \
+               -I/root/.espressif/components/soc/esp32c3/register \
+               -I/root/.espressif/components/esp_rom/esp32c3/include \
+               -I/root/.espressif/components/esp_rom/esp32c3/include/esp32c3
+
